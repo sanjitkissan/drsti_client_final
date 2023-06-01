@@ -10,16 +10,16 @@ type FormType = {
   email: string;
   subject: string;
   massage: string;
-  otp:number
+  otp: number;
 };
 
 export default function MessageSection() {
   const [post, setPost] = useState<any>();
   const [errorMessage, setErrorMessage] = useState("");
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [newOtp, setNewOtp]=useState<any>(0)
-  const [validateOtpNum, setValidateOtpNum] = useState<Number>()
-  const [allData, setAllData] = useState<any>()
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [newOtp, setNewOtp] = useState<any>(0);
+  const [validateOtpNum, setValidateOtpNum] = useState<Number>();
+  const [allData, setAllData] = useState<any>();
   useEffect(() => {
     fetch("http://admin.drsti-ooh.com:1337/contactforms", {
       method: "POST",
@@ -32,8 +32,6 @@ export default function MessageSection() {
       .then((data) => console.log("data"))
       .catch((error) => console.error(error));
   }, [post]);
-
-
 
   const otpGenerator = Math.floor(Math.random() * 9000 + 1000);
 
@@ -55,31 +53,27 @@ export default function MessageSection() {
     console.log("OTP sent successfully");
   };
 
+  const otpCheck = (event: any) => {
+    setNewOtp(event.target.value);
+  };
 
-  const otpCheck=(event:any)=>{
-    setNewOtp(event.target.value)
-    
-  }
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
 
- 
-
-  const handleSubmit =(event:any)=>{
-      event.preventDefault()
-      
-      if (validateOtpNum==newOtp){
-        setIsOpen(false);
-        setPost(allData)
-      }else{
-        alert("enter the valid OTP")
-      }
-  }
-// console.log(validateOtpNum)
+    if (validateOtpNum == newOtp) {
+      setIsOpen(false);
+      setPost(allData);
+    } else {
+      alert("enter the valid OTP");
+    }
+  };
+  // console.log(validateOtpNum)
   let initialValues: FormType = {
     name: "",
     email: "",
     subject: "",
     massage: "",
-    otp:otpGenerator
+    otp: otpGenerator,
   };
   const formik = useFormik({
     initialValues,
@@ -88,31 +82,29 @@ export default function MessageSection() {
       name: Yup.string()
         .required("* Name is required")
         .min(2, "* Enter a valid name"),
-        email: Yup.string()
+      email: Yup.string()
         .email("* Enter a valid E-mail")
         .required("* E-mail is required"),
-        subject: Yup.string().required("* subject is required"),
+      subject: Yup.string().required("* subject is required"),
 
       massage: Yup.string().required("* Write some Message"),
       otp: Yup.number().required("* Write some Message"),
     }),
     onSubmit: (values: FormType, props: FormikHelpers<FormType>) => {
       try {
-        setAllData(values)
-        sendOTP()
-        setIsOpen(true)
-        setValidateOtpNum(formik.values.otp)
-      }catch (err) {
-        console.log(err)
-      }finally{
+        setAllData(values);
+        console.log(values);
+        sendOTP();
+        setIsOpen(true);
+        setValidateOtpNum(formik.values.otp);
+      } catch (err) {
+        console.log(err);
+      } finally {
         props.resetForm();
       }
-     
-     
-      
     },
   });
-  
+
   return (
     <section className="w-full  main-container flex flex-col items-center justify-center gap-16 lg:my-24 my-12">
       <div className="w-full center ">
@@ -121,11 +113,12 @@ export default function MessageSection() {
         </h1>
       </div>
       <section className="w-full h-auto lg:h-[70vh] flex flex-col lg:flex-row gap-6 lg:gap-4 items-center justify-center  lg:my-0  ">
-        <div
-          
-          className="w-full h-auto lg:h-[70vh] bg-center bg-cover bg-no-repeat"
-        >
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.410970674952!2d77.57361881534334!3d13.00948071756463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17df652ee8bd%3A0xfad4d2e0060724d2!2sdRSTi%20Communications!5e0!3m2!1sen!2sin!4v1677754505180!5m2!1sen!2sin" className='w-full h-full' referrerPolicy="no-referrer-when-downgrade"></iframe>
+        <div className="w-full h-auto lg:h-[70vh] bg-center bg-cover bg-no-repeat">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.410970674952!2d77.57361881534334!3d13.00948071756463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17df652ee8bd%3A0xfad4d2e0060724d2!2sdRSTi%20Communications!5e0!3m2!1sen!2sin!4v1677754505180!5m2!1sen!2sin"
+            className="w-full h-full"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
         <div className="w-full h-auto lg:h-[70vh]">
           <span className=" bg-white w-full h-full p-6 flex flex-col items-start justify-center gap-4 shadow-[0_3px_10px_rgb(0,0,0,0.2)] ">
@@ -193,7 +186,6 @@ export default function MessageSection() {
               />
               <TextField
                 className="w-full opacity-0 h-0"
-              
                 name="otp"
                 type={"number"}
                 placeholder="Leave your message"
@@ -214,20 +206,32 @@ export default function MessageSection() {
         </div>
       </section>
       <Dialog
-    fullWidth
-    maxWidth={"sm"}
-    open={isOpen}
-    onClose={() => {
-      setIsOpen(false);
-    }}
-  >
-    <form action="" className="p-6" onSubmit={handleSubmit}>
-        <h2 className="w-full text-center text-xl font-bold m-2 capitalize">please enter the OTP</h2>
-    <input type="text" onChange={otpCheck} className="w-full h-16 border border-black m-2 rounded-md px-4" placeholder="enter the otp" />
-    {/* <input type="number" name="otpnum" id="" onChange={validateOtp}   value={otpGenerator}/> */}
-    <button className="px-6 py-2 rounded-md bg-red-600 font-bold text-white m-2" type="submit" >submit</button>
-    </form>
-  </Dialog>
+        fullWidth
+        maxWidth={"sm"}
+        open={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+      >
+        <form action="" className="p-6" onSubmit={handleSubmit}>
+          <h2 className="w-full text-center text-xl font-bold m-2 capitalize">
+            please enter the OTP
+          </h2>
+          <input
+            type="text"
+            onChange={otpCheck}
+            className="w-full h-16 border border-black m-2 rounded-md px-4"
+            placeholder="enter the otp"
+          />
+          {/* <input type="number" name="otpnum" id="" onChange={validateOtp}   value={otpGenerator}/> */}
+          <button
+            className="px-6 py-2 rounded-md bg-red-600 font-bold text-white m-2"
+            type="submit"
+          >
+            submit
+          </button>
+        </form>
+      </Dialog>
     </section>
   );
 }
