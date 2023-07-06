@@ -15,13 +15,13 @@ function Newblogs() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://admin.drsti-ooh.com:1337/blogs');
+                const response = await fetch('http://localhost:1337/api/blogs');
                 const jsonData = await response.json();
                 // console.log(jsonData.data)
                 // const preData=jsonData.data
                 // const newData=[]
                 // const postData=newData.push(preData)
-                setUplord(jsonData);
+                setUplord(jsonData.data);
 
             } catch (error) {
                 console.log(error);

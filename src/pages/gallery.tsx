@@ -4,6 +4,7 @@ import Breadcrumb from '../components/gallery/Breadcrumb'
 import HeroSection from '../components/gallery/HeroSection'
 import Photos from '../components/gallery/Photos'
 import MainLayout from '../layouts/MainLayout'
+import NewPhoto from '../components/gallery/NewPhoto'
 
 export default function Gallery() {
   return (
@@ -11,7 +12,8 @@ export default function Gallery() {
       <MainForm/>
       <Breadcrumb/>
       <HeroSection/>
-      <Photos/>
+      {/* <Photos/> */}
+      <NewPhoto/>
     </MainLayout>
   )
 }

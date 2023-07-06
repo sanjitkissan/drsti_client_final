@@ -1,7 +1,6 @@
 import { OurTeamArr } from '@/src/utils/about';
 import React, { useEffect, useState } from 'react';
 import OurTeamCard from '../card/about/OurTeamCard';
-import axios from "axios"
  
 // export const getStaticProps= async ()=>{
 //     const res = await fetch("http://localhost:1337/api/abouts/")
@@ -24,9 +23,9 @@ function  OurTeam() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://admin.drsti-ooh.com:1337/team-members');
+                const response = await fetch('http://localhost:1337/api/abouts');
                 const jsonData = await response.json();
-                setUplord(jsonData);
+                setUplord(jsonData.data);
             } catch (error){
                 console.log(error);
             }
