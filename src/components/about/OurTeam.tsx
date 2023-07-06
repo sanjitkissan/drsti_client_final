@@ -1,4 +1,3 @@
-import { OurTeamArr } from '@/src/utils/about';
 import React, { useEffect, useState } from 'react';
 import OurTeamCard from '../card/about/OurTeamCard';
  
