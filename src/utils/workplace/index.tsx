@@ -1,4 +1,3 @@
-import { Digital_Media_Image, On_ground_activation, Static_Media_Image1 } from "@/src/assets/gallery";
 import { solutions1, solutions2, solutions3, workslider1, workslider2, workslider3 } from "@/src/assets/workplace";
 import { partners1, partners10,  partners12, partners13,  partners18,  partners19,  partners2,  partners20,  partners21,  partners24, partners25, partners26, partners3, partners4, partners5, partners6, partners7, partners8, partners9 } from "@/src/assets/workplace/client";
 import { ww1, ww10, ww11, ww12, ww13, ww2, ww3, ww4, ww5, ww6, ww7, ww8, ww9 } from "@/src/assets/workplace/workplacegaller";

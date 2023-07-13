@@ -21,7 +21,7 @@ export default function MainForm() {
   const [allData, setAllData] = useState<any>()
   const [isModalopen, setIsModalopen] = useState<boolean>(false)
   useEffect(() => {
-    fetch("http://admin.drsti-ooh.com:1337/contactforms", {
+    fetch("http://localhost:1337/api/contactfroms", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -34,7 +34,7 @@ function Breadcrumb() {
   const otpGenerator = Math.floor(Math.random() * 9000 + 1000);
   
   useEffect(() => {
-    fetch("http://admin.drsti-ooh.com:1337/otp-forms", {
+    fetch("http://localhost:1337/api/contactfroms", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
